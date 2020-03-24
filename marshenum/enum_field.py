@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, EnumMeta
 
 from marshmallow import validate, ValidationError
 from marshmallow.fields import Field
@@ -39,7 +39,17 @@ class EnumField(Field):
         super().fail(key, **kwargs)
 
 
-class RegisteredEnum(Enum):
+class RegisteredEnumMeta(EnumMeta):
+    def __new__(cls, name, bases, cls_dict):
+        if (not any(base_type in base_cls.mro()
+                    for base_cls in bases
+                    for base_type in [int, float, str, tuple])
+                and name != 'RegisteredEnum'):
+            bases = (str, *bases)
+        return super().__new__(cls, name, bases, cls_dict)
+
+
+class RegisteredEnum(Enum, metaclass=RegisteredEnumMeta):
     def __init_subclass__(cls):
         def _enum_field_converter(converter, subtypes, opts):
             keys = cls._value2member_map_.keys()
