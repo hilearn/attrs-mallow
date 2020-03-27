@@ -23,3 +23,9 @@ update_venv: requirements.txt ${venv}
 	@echo Success, to activate the development environment, run:
 	@echo "\tsource .venv/current/bin/activate"
 .PHONY: update_venv
+
+publish:
+	python3 setup.py register
+	python3 setup.py sdist upload
+.PHONY: publish
+
