@@ -29,3 +29,6 @@ publish:
 	python3 setup.py sdist upload
 .PHONY: publish
 
+test:
+	python -m pytest tests
+.PHONY: test
