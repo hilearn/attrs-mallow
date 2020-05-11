@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='marshenum',
-    version='0.1.3',
+    version='0.1.3.post1',
     packages=['marshenum'],
     author_email="zidder@hilearn.io",
     description="Use enums with marshmallow",

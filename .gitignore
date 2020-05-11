@@ -1,3 +1,9 @@
 .tmp/
 .venv/
 __pycache__/
+
+
+# Distributing with PyPI
+build/
+dist/
+marshenum.egg-info/

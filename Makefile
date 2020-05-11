@@ -7,26 +7,26 @@ venv = .venv/${venv_name}
 _python = . ${venv}/bin/activate; python
 _pip = . ${venv}/bin/activate; pip
 
-create_venv: ${venv}
-.PHONY: create_venv
+default: update_venv
+.PHONY: default
 
 ${venv}: PYTHON_PREFIX=
-${venv}: requirements.txt
+${venv}/bin/pip: requirements.txt
 	${PYTHON_PREFIX}python${PYTHON_VERSION} -m venv ${venv}
 	${_pip} install --upgrade pip --cache .tmp/
 	${_pip} install -r requirements.txt --cache .tmp/
 
+
 update_venv: requirements.txt ${venv}
 	${_pip} install -r requirements.txt --cache .tmp/
-	@rm -f .venv/current
-	@ln -s ${venv_name} .venv/current
+	@ln -fs ${venv_name} .venv/current
 	@echo Success, to activate the development environment, run:
 	@echo "\tsource .venv/current/bin/activate"
 .PHONY: update_venv
 
 publish:
-	python3 setup.py register
-	python3 setup.py sdist upload
+	${_python} setup.py sdist bdist_wheel
+	twine upload dist/*
 .PHONY: publish
 
 test:
