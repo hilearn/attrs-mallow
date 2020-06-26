@@ -1,6 +1,6 @@
 from enum import Enum, EnumMeta
 
-from marshmallow import validate, ValidationError
+from marshmallow import ValidationError
 from marshmallow.fields import Field
 from marshmallow_annotations import registry
 

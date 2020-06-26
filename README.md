@@ -43,3 +43,14 @@ class Derived:
     string: str
     integer: int = 0
 ```
+
+To add a marshmallow schema to sqlalchemy model use `model_with_schema` decorator:
+
+```
+@model_with_schema
+class Table(db.Model):
+    __tablename__ = 'table'
+    column: str = Column(String, primary_key=True)
+```
+
+The created marshmallow schema is stored on `Table.schema`.
