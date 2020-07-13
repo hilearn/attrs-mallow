@@ -1,11 +1,11 @@
 from setuptools import setup
 
 setup(
-    name='marshenum',
-    version='0.1.5',
+    name='marshmallow-helpers',
+    version='0.2.0',
     packages=['marshenum'],
     author_email="zidder@hilearn.io",
-    description="Use enums with marshmallow",
+    description="Ease marshmallow schema creation",
     classifiers=['Programming Language :: Python :: 3',
                  'Development Status :: 3 - Alpha'],
     install_requires=["attrs==19.3.0",

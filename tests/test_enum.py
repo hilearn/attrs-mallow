@@ -121,5 +121,3 @@ class SchemaTest(TestCase):
             enum_to_schema(MyDumpByKeyIntEnum)().dumps(
                 {"enum": MyDumpByKeyIntEnum.a}),
             json.dumps({"enum": "a"}))
-
-

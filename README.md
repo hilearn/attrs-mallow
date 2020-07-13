@@ -1,5 +1,24 @@
 This library helps to create marshmallow schemas easier.
 
+
+## Run flask locally
+
+```
+export FLASK_APP=demo_app.flask_app
+flask run
+```
+
+## Testing
+
+Run the following:
+```
+python -m pytest tests
+```
+
+## Usage
+
+### Enums
+
 Derive from RegisteredEnum class to have serializable enum. Set `__load_by_value__` and `__dump_by_value__` to correspondingly load and dump enumerations by their keys or values. Set `__by_value__` for both of them. Default values are `True`.
 
 ```
@@ -17,6 +36,8 @@ Register EnumField to api with
 ```
 api.register_field(EnumField, 'string', None)
 ```
+
+### Derive
 
 To derive from an `attrs` class use `derive` decorator. Here is an example:
 ```
@@ -44,13 +65,17 @@ class Derived:
     integer: int = 0
 ```
 
+### Sqlalchemy models
 To add a marshmallow schema to sqlalchemy model use `model_with_schema` decorator:
 
 ```
 @model_with_schema
 class Table(db.Model):
     __tablename__ = 'table'
-    column: str = Column(String, primary_key=True)
+    column = Column(String, primary_key=True)
+    letter = Column(Letter)
+    dictionary = Column(JSON)
+    array: List[str] = Column(JSON)
 ```
 
-The created marshmallow schema is stored on `Table.schema`.
+The created marshmallow schema is stored on `Table.schema`. Here, `array` will be loaded as `list` and `dictionary` will be loaded as `dict`.
