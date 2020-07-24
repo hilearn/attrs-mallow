@@ -1,6 +1,6 @@
 from typing import List
 
-from marshenum import model_with_schema
+from marshmallow_helpers import model_with_schema
 
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy import String, JSON

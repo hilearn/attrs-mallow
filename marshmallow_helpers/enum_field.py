@@ -2,7 +2,7 @@ from enum import Enum, EnumMeta
 
 from marshmallow import ValidationError
 from marshmallow.fields import Field
-from marshmallow_annotations import registry
+from .marshmallow_annotations import registry
 
 
 BASE_TYPES = [int, float, str, tuple]

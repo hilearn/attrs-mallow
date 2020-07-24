@@ -7,3 +7,4 @@ __pycache__/
 build/
 dist/
 marshenum.egg-info/
+marshmallow_helpers.egg-info/

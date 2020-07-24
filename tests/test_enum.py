@@ -2,7 +2,7 @@ from unittest import TestCase
 import json
 import attr
 
-from marshenum import RegisteredEnum, attr_with_schema
+from marshmallow_helpers import RegisteredEnum, attr_with_schema
 
 
 def enum_to_schema(enum_cls):

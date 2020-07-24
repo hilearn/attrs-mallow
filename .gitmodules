@@ -1,0 +1,3 @@
+[submodule "marshmallow-annotations"]
+	path = marshmallow-annotations
+	url = https://github.com/hilearn/marshmallow-annotations.git

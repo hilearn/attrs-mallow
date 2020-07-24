@@ -2,7 +2,7 @@ import attr
 from copy import copy
 from functools import wraps
 
-from marshmallow_annotations.ext.attrs import AttrsSchema
+from .marshmallow_annotations.ext.attrs import AttrsSchema
 
 
 def attr_with_schema(**kwargs):

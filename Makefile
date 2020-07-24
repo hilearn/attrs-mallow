@@ -1,5 +1,6 @@
-PROJECT = marshenum
-PYTHON_VERSION=3.7
+PROJECT = marshmallow_helpers
+PYTHON=python3.7
+PYTHON_VERSION=$(shell ${PYTHON} --version 2>&1 | cut -c 8-10)
 venv_name = py${PYTHON_VERSION}-${PROJECT}
 venv = .venv/${venv_name}
 
@@ -10,14 +11,13 @@ _pip = . ${venv}/bin/activate; pip
 default: update_venv
 .PHONY: default
 
-${venv}: PYTHON_PREFIX=
 ${venv}/bin/pip: requirements.txt
-	${PYTHON_PREFIX}python${PYTHON_VERSION} -m venv ${venv}
+	python${PYTHON_VERSION} -m venv ${venv}
 	${_pip} install --upgrade pip --cache .tmp/
 	${_pip} install -r requirements.txt --cache .tmp/
 
 
-update_venv: requirements.txt ${venv}
+update_venv: requirements.txt ${venv}/bin/pip
 	${_pip} install -r requirements.txt --cache .tmp/
 	@ln -fs ${venv_name} .venv/current
 	@echo Success, to activate the development environment, run:
@@ -26,7 +26,7 @@ update_venv: requirements.txt ${venv}
 
 publish:
 	${_python} setup.py sdist bdist_wheel
-	twine upload dist/*
+	${_python} -m twine upload dist/*
 .PHONY: publish
 
 test:
