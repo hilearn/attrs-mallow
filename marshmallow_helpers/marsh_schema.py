@@ -7,10 +7,15 @@ from .marshmallow_annotations.ext.attrs import AttrsSchema
 
 def attr_with_schema(**kwargs):
     def decorator(cls):
+        bases = []
+        if hasattr(cls, 'Schema'):
+            bases.append(cls.Schema)
+        bases.append(AttrsSchema)
+
         schema_meta = getattr(cls, 'SchemaMeta', object)
         fields = attr.fields(cls)
 
-        class Schema(AttrsSchema):
+        class Schema(*bases):
             class Meta(schema_meta):
                 locals().update(kwargs)
                 target = cls

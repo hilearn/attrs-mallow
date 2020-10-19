@@ -37,6 +37,52 @@ Register EnumField to api with
 api.register_field(EnumField, 'string', None)
 ```
 
+### Add schema on attrs
+
+Decorate your class with `@attr_with_schema` to add a schema on `@attr.s` class. It will be stored on `class.schema`.
+
+```
+@attr_with_schema(register_as_scheme=True, strict=True)
+@attr.s(auto_attribs=True)
+class Attributes:
+    integer: int
+    string: str
+    obj: dict
+```
+
+#### Adding validators on the schema
+
+```
+@attr_with_schema(register_as_scheme=True, strict=True)
+@attr.s(auto_attribs=True)
+class Attributes:
+    nonnegative_integer: int
+    string: str
+    obj: dict
+
+    class Schema:
+        @ma.validates_schema
+        def validate_nonnegative_integer(self, data, **kwargs):
+            if data["nonnegative_integer"] < 0:
+                raise ma.ValidationError(
+                    "nonnegative_integer should be non-negative")
+```
+
+#### Adding meta information on the schema
+
+```
+@attr_with_schema(register_as_scheme=True, strict=True)
+@attr.s(auto_attribs=True)
+class Attributes:
+    nonnegative_integer: int
+    string: str
+    obj: dict
+
+    class SchemaMeta:
+        class Fields:
+            obj = {"allow_none": True}
+```
+
 ### Derive
 
 To derive from an `attrs` class use `derive` decorator. Here is an example:

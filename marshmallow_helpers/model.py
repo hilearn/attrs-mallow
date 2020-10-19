@@ -39,9 +39,9 @@ def model_with_schema(maybe_cls=None, **kwargs):
                     continue
                 cls.__annotations__[name] = base.__dict__[
                     name].fget.__annotations__['return']
-        
+
         these.update(these_with_defaults)
-        
+
         return attr_with_schema(
             **{"register_as_scheme": True, "strict": True, **kwargs})(
                 attr.s(cls, these=these, init=False))
