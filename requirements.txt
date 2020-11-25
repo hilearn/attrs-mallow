@@ -1,4 +1,4 @@
-attrs==19.3.0
+attrs==20.3.0
 marshmallow==3.5.1
 webargs>=5.5.3
 pytest==5.4.1

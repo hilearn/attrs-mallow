@@ -96,7 +96,7 @@ class Base:
 
 @attr_with_schema(register_as_scheme=True, strict=True)
 @attr.s(auto_attribs=True)
-@derive(AllowNoneDict, exclude={"obj"})
+@derive(Base, exclude={"obj"})
 class Derived:
     string: str
 ```

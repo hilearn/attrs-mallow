@@ -1,8 +1,10 @@
 import attr
 
-from marshenum import attr_with_schema
-from marshenum import RegisteredEnum as Enum
-from marshenum import derive
+import marshmallow as ma
+
+from marshmallow_helpers import attr_with_schema
+from marshmallow_helpers import RegisteredEnum as Enum
+from marshmallow_helpers import derive
 
 
 class IntExampleEnum(int, Enum):
@@ -51,7 +53,7 @@ class AllowNoneDict:
     class SchemaMeta:
         class Fields:
             obj = {"allow_none": True}
-            integer = {"allow_none": True}
+            integer = {"allow_none": True, "validate": ma.validate.Range(min=0, max=100)}
 
 
 @attr_with_schema(register_as_scheme=True, strict=True)

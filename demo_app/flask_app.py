@@ -2,7 +2,7 @@ from flask import Flask
 from flask_smorest import Api, Blueprint
 from flask_restful import Resource
 
-from marshenum import EnumField
+from marshmallow_helpers import EnumField
 from .enum_schema import EnumQuery, EnumResponse, AllowNoneDict, ByKey, Derived
 
 bp = Blueprint('EnumField demo', __name__)
