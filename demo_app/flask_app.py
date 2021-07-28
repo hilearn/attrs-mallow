@@ -26,7 +26,7 @@ class NoneObjDemo(Resource):
     @bp.arguments(AllowNoneDict.schema, location="json",
                   required=True, as_kwargs=True)
     @bp.response(AllowNoneDict.schema)
-    def post(self, obj, integer):
+    def post(self, obj, integer, prime):
         return {"obj": obj, "integer": integer}
 
 
@@ -43,7 +43,7 @@ class DerivedDemo(Resource):
     @bp.arguments(Derived.schema, location="json",
                   required=True, as_kwargs=True)
     @bp.response(Derived.schema)
-    def post(self, string, integer):
+    def post(self, string, integer, prime):
         return {"integer": integer + 1, "string": string}
 
 

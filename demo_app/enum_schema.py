@@ -49,11 +49,27 @@ class EnumResponse:
 class AllowNoneDict:
     obj: dict
     integer: int = 0
+    prime: bool = False
 
     class SchemaMeta:
         class Fields:
             obj = {"allow_none": True}
-            integer = {"allow_none": True, "validate": ma.validate.Range(min=0, max=100)}
+            integer = {"allow_none": True,
+                       "validate": ma.validate.Range(min=0, max=100)}
+
+    class Schema:
+        @ma.validates_schema
+        def prime_integer(self, data, **kwargs):
+            if data["prime"] and (data['integer'] is None
+                                  or not self.is_prime(data['integer'])):
+                raise ma.ValidationError("integer was supposed to be prime")
+
+        @staticmethod
+        def is_prime(num):
+            for i in range(2, num - 1):
+                if num % i == 0:
+                    return False
+            return True
 
 
 @attr_with_schema(register_as_scheme=True, strict=True)

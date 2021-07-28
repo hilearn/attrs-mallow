@@ -92,6 +92,26 @@ To derive from an `attrs` class use `derive` decorator. Here is an example:
 class Base:
     obj: dict
     integer: int = 0
+    prime: bool = False
+
+    class SchemaMeta:
+        class Fields:
+            obj = {"allow_none": True}
+            integer = {"allow_none": True,
+                       "validate": ma.validate.Range(min=0, max=100)}
+
+    class Schema:
+        @ma.validates_schema
+        def prime_integer(self, data, **kwargs):
+            if data["prime"] and not self.is_prime(data['integer']):
+                raise ma.ValidationError("integer was supposed to be prime")
+
+        @staticmethod
+        def is_prime(num):
+            for i in range(2, num - 1):
+                if num % i == 0:
+                    return False
+            return True
 
 
 @attr_with_schema(register_as_scheme=True, strict=True)
@@ -109,7 +129,29 @@ The `Derived` class above is equivalent to the following:
 class Derived:
     string: str
     integer: int = 0
+    prime: bool = False
+
+    class SchemaMeta:
+        class Fields:
+            obj = {"allow_none": True}
+            integer = {"allow_none": True,
+                       "validate": ma.validate.Range(min=0, max=100)}
+
+    class Schema:
+        @ma.validates_schema
+        def prime_integer(self, data, **kwargs):
+            if data["prime"] and not self.is_prime(data['integer']):
+                raise ma.ValidationError("integer was supposed to be prime")
+
+        @staticmethod
+        def is_prime(num):
+            for i in range(2, num - 1):
+                if num % i == 0:
+                    return False
+            return True
 ```
+
+WARNING: derive also derives schemas and validations. The @validate_schema might use `obj` in the validation. In that case pass `derive_schema=False` or `derive_schema_meta=False` to `derive` decorator to not derive corresponding schemas.
 
 ### Sqlalchemy models
 To add a marshmallow schema to sqlalchemy model use `model_with_schema` decorator:
