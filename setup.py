@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='marshmallow-helpers',
-    version='0.4.3',
+    version='0.4.4',
     packages=['marshmallow_helpers',
               'marshmallow_helpers.marshmallow_annotations',
               'marshmallow_helpers.marshmallow_annotations.ext'],
